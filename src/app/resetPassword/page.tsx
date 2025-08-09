@@ -1,13 +1,17 @@
 'use client'
-import Form from "@/src/components/form"
-import { resetPassword } from "../../components/functions"
+import Form from "@/src/components/Form"
+import { resetPassword } from "../../utils/apiServices"
+
+const inputs = [
+    { label: 'email', type: 'email' },
+]
+const button = ['Reset Password']
 
 const Reset = () => {
-    const labels = ["Email"]
-    const button = ['Reset Password']
-    // const formType = { text: "Don't have an account?", link: "Register" }
     return (
-        <Form labels={labels} button={button} handleSubmit={resetPassword} />
+        <div className="px-2">
+            <Form inputs={inputs} button={button} handleSubmit={resetPassword} />
+        </div>
     )
 }
 

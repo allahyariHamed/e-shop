@@ -6,10 +6,10 @@
   }
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* :root { */
+/* --background: #ffffff;
+  --foreground: #171717; */
+/* } */
 
 @theme inline {
   --color-background: var(--background);
@@ -18,7 +18,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
+/* body { */
+/* background: var(--background); */
+/* color: var(--foreground); */
+/* } */
+.navbar-button {
+  @apply rounded font-bold py-1 px-2 text-xs bg-white shadow
+}
+
+.button {
+  @apply shadow hover:bg-violet-100 active:shadow-none bg-white border rounded w-full py-1
+}
+
+.label {
+  @apply absolute cursor-text bg-transparent font-bold rounded px-1 left-2.5 text-sm opacity-0 transition-all transform origin-left peer-focus:-top-5 peer-focus:left-0 peer-focus:text-sm peer-focus:opacity-100 peer-focus:scale-90 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm
 }

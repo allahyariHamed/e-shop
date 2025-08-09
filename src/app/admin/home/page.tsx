@@ -1,9 +1,16 @@
-import React from 'react'
+import AddProduct from "@/src/components/AddProduct"
+import AdminFooter from "@/src/components/AdminFooter"
+import { AdminOnlyRoutes } from "@/src/components/DynamicLinks"
 
-const adminHome = () => {
+const AdminHome = () => {
   return (
-    <div>adminHome</div>
+    <AdminOnlyRoutes>
+      <div className="px-2">
+        <AddProduct />
+      </div>
+      <AdminFooter />
+    </AdminOnlyRoutes>
   )
 }
 
-export default adminHome
+export default AdminHome

@@ -1,101 +1,96 @@
 'use client'
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import React, { SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import GoogleAuthButton from "./googleAuthButton";
+import GoogleAuthButton from "./GoogleAuthButton";
 import 'react-toastify/ReactToastify.css'
-import Spinner from "./spinner";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useDispatch } from "react-redux";
-import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "./redux/authSlice";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../utils/redux/authSlice";
+import { FormProps } from "../types/types.";
 
-interface prop {
-    formType?: { text: string, link: string }
-    labels?: string[]
-    button: React.ReactNode[]
-    handleSubmit: (
-        e: React.FormEvent<HTMLFormElement>,
-        formData: Record<string, string>,
-        router: ReturnType<typeof useRouter>,
-        setSpinner: React.Dispatch<SetStateAction<boolean>>
-    ) => void
-    handleGoogleAuth?: () => void
-}
-
-const Form = ({ formType, labels, button, handleSubmit, handleGoogleAuth }: prop) => {
+const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, handleGoogleAuth, inputs }) => {
     const [formData, setFormData] = useState<Record<string, string>>({});
-    const [spinner, setSpinner] = useState<boolean>(false)
+    const [focus, SetFocus] = useState<string>('')
+    const [extractedUserName, SetExtractedUserName] = useState<string>()
     const router = useRouter();
     const dispatch = useDispatch()
 
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            if (user?.displayName == null || '') {
-                const extractedUserName = user?.email?.split('@')[0]
+            if (user) {
+
+
+                if (user?.displayName == null || '') {
+                    SetExtractedUserName(user?.email?.split('@')[0])
+                }
                 dispatch(SET_ACTIVE_USER({
                     email: user?.email || '',
                     userName: user?.displayName || extractedUserName,
                     userId: user?.uid
                 }))
-
             } else {
                 dispatch(REMOVE_ACTIVE_USER())
             }
         })
-    }, [dispatch])
+    }, [dispatch, extractedUserName])
+
 
     return (
-        <>
-            <div className="h-screen flex items-center justify-center p-5">
-                <div className="bg-violet-100 p-5 w-full rounded-2xl shadow-md shadow-violet-400 border-b border-b-violet-500">
+        <div className="p-3 w-full rounded-lg shadow bg-violet-200">
 
-                    <span className="flex justify-center font-extrabold text-2xl items-center w-full text-violet-600 mb-5 hover:bg-violet-700">
-                        {button}
-                    </span>
+            <div className="font-extrabold text-2xl text-center">
+                {button}
+            </div>
 
-                    <form onSubmit={(e) => handleSubmit(e, formData, router, setSpinner)}>
-                        {
-                            labels?.map((label, i) => (
-                                < div key={i} className="mb-5 relative" >
-                                    <input
-                                        type={label.toLowerCase().includes('password') ? 'password' : label.toLowerCase() === 'email' ? 'email' : 'text'}
-                                        id={label.replace(' ', '')}
-                                        name={label.replace(' ', '')}
-                                        value={formData[label.replace(' ', '')] || ''}
-                                        onChange={(e) => setFormData({ ...formData, [label.replace(' ', '')]: e.target.value })}
-                                        className="peer w-full bg-transparent placeholder:text-slate-400 text-violet-900 text-sm border border-violet-500 rounded-lg px-3 py-2 transition duration-300 ease focus:outline-none focus:border-violet-400 shadow shadow-violet-400 focus:shadow-none"
-                                        required
-                                        placeholder={label}
-                                    />
-                                    <label htmlFor={label.replace(' ', '')} className="absolute cursor-text bg-violet-200 rounded px-1 left-2.5 top-2.5 text-violet-700 text-sm opacity-0
-                                    transition-all transform origin-left peer-focus:-top-3 peer-focus:left-2 peer-focus:text-sm peer-focus:opacity-100 peer-focus:text-violet-700 peer-focus:scale-90
-                                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm">
-                                        {label}
-                                    </label>
-                                </div>
-                            ))
-                        }
+            <form onSubmit={(e) => handleSubmit?.(e, formData, router)} className="my-5">
+                {
+                    inputs?.map((input, i) => (
+                        < div key={i} className="relative my-5" >
+                            <input
+                                // type={label.toLowerCase().includes('password') ? 'password' : label.toLowerCase() === 'email' ? 'email' : 'text'}
+                                type={input.type}
+                                id={input.label}
+                                name={input.label}
+                                value={formData[input.label] || ''}
+                                onChange={(e) => setFormData({ ...formData, [input.label]: e.target.value })}
+                                className="peer w-full bg-white placeholder:text-slate-500 text-black text-xs rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow focus:shadow-none"
+                                required
+                                onFocus={() => SetFocus(input.label)}
+                                onBlur={() => SetFocus('')}
+                                placeholder={focus === input.label ? '' : input.label}
+                            />
+                            <label htmlFor={input.label} className="label">
+                                {input.label}
+                            </label>
+                        </div>
+                    ))
+                }
+                <div className="flex gap-2">
+                    {
+                        button && <button type="submit" className="font-bold button">
+                            {button}
+                        </button>
+                    }
+                    {
+                        button?.includes('Login') && <GoogleAuthButton handleGoogleAuth={handleGoogleAuth} button={button} />
+                    }
+                </div>
+            </form>
 
-                        {
-                            button && <button type="submit" className="flex justify-evenly font-bold items-center w-full bg-violet-600 text-white py-2 mt-4 rounded-lg hover:bg-violet-700 transition-colors shadow-md shadow-violet-400 active:shadow-none">
-                                {!spinner ? button : <Spinner />}
-                            </button>
-                        }
+            <p className="text-center text-sm">
+                <span>
+                    {endOfTheFormTitle?.text}{' '}
+                </span>
 
-                        {button.includes('Login') && <GoogleAuthButton handleGoogleAuth={handleGoogleAuth} button={button} />}
-                    </form>
+                <Link href={`/${endOfTheFormTitle?.link}`} className="text-violet-600 hover:text-violet-400 font-bold">
+                    {endOfTheFormTitle?.link}
+                </Link>
+            </p>
 
-                    <p className="mt-4 text-center text-violet-900">
-                        {formType?.text}{' '}
-                        <Link href="/login" className="text-violet-500 hover:text-violet-700">
-                            {formType?.link}
-                        </Link>
-                    </p>
-
-                </div >
-            </div >
-        </>
+        </div >
     );
 };
 export default Form; 

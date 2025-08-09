@@ -1,13 +1,18 @@
 'use client'
-import Form from "@/src/components/form"
-import { login, loginByGoogle } from "../../components/functions"
+import Form from "@/src/components/Form"
+import { login, loginByGoogle } from "../../utils/apiServices"
 
 const Login = () => {
-    const labels = ["Email", "Password"]
+    const inputs = [
+        { label: 'email', type: 'email' },
+        { label: 'password', type: 'password' },
+    ]
     const button = ['Login']
-    const formType = { text: "Don't have an account?", link: "Register" }
+    const endOfTheFormTitle = { text: "Don't have an account?", link: "Register" }
     return (
-        <Form formType={formType} labels={labels} button={button} handleSubmit={login} handleGoogleAuth={loginByGoogle} />
+        <div className="px-2">
+            <Form endOfTheFormTitle={endOfTheFormTitle} inputs={inputs} button={button} handleSubmit={login} handleGoogleAuth={loginByGoogle} />
+        </div>
     )
 }
 

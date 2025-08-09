@@ -1,14 +1,22 @@
 "use client"
-import Form from "@/src/components/form";
-import { register } from "../../components/functions";
+import Form from "@/src/components/Form";
+import { register } from "../../utils/apiServices";
+
+const inputs = [
+    { label: 'user name', type: 'text' },
+    { label: 'phone number', type: 'tel' },
+    { label: 'email', type: 'email' },
+    { label: 'password', type: 'password' },
+    { label: 'confirm password', type: 'password' },
+]
+const button = ['Register']
+const endOfTheFormTitle = { text: "Already have an account?", link: "Login" }
 
 const Register = () => {
-    const labels = ["Username", "Phone Number", "Email", "Password", "Confirm Password"]
-    const button = ['Register']
-
-    const formType = { text: "Already have an account?", link: "login" }
     return (
-        <Form formType={formType} labels={labels} button={button} handleSubmit={register} />
+        <div className="px-2">
+            <Form endOfTheFormTitle={endOfTheFormTitle} inputs={inputs} button={button} handleSubmit={register} />
+        </div>
     );
 };
 
