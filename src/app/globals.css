@@ -31,5 +31,5 @@
 }
 
 .label {
-  @apply absolute cursor-text bg-transparent font-bold rounded px-1 left-2.5 text-sm opacity-0 transition-all transform origin-left peer-focus:-top-5 peer-focus:left-0 peer-focus:text-sm peer-focus:opacity-100 peer-focus:scale-90 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm
+  @apply absolute cursor-text bg-transparent rounded px-1 left-2.5 text-xs opacity-0 transition-all transform origin-left peer-focus:-top-5 peer-focus:left-0 peer-focus:text-sm peer-focus:opacity-100 peer-focus:scale-90 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm
 }

@@ -8,7 +8,7 @@ const Login = () => {
         { label: 'password', type: 'password' },
     ]
     const button = ['Login']
-    const endOfTheFormTitle = { text: "Don't have an account?", link: "Register" }
+    const endOfTheFormTitle = { text: "Don't have an account?", link: "register" }
     return (
         <div className="px-2">
             <Form endOfTheFormTitle={endOfTheFormTitle} inputs={inputs} button={button} handleSubmit={login} handleGoogleAuth={loginByGoogle} />

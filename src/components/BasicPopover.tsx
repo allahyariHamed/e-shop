@@ -1,8 +1,10 @@
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-// import Button from '@mui/material/Button';
+import Link from 'next/link';
 import { useState } from 'react';
-import { HiDotsVertical } from 'react-icons/hi';
+import { HiDotsVertical, HiLogin, HiLogout, HiUser } from 'react-icons/hi';
+import { AdminOnlyButtons, ShowOnLogin, ShowOnLogout } from './DynamicLinks';
+import { logOut } from '../utils/apiServices';
+import { HiHome } from 'react-icons/hi2';
 
 const BasicPopover = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
@@ -24,31 +26,41 @@ const BasicPopover = () => {
                 <HiDotsVertical />
             </div>
             <Popover
-                className='mt-4' 
+                className='mt-4'
                 id={id}
                 open={open}
                 anchorEl={anchorEl}
                 onClose={closePopover}
                 anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'right',
+                    horizontal: 'left',
                 }}
+                disableAutoFocus
+                disableRestoreFocus
             >
-                <Typography className='bg-violet-200 border-b border-violet-300' sx={{ px: 2, py: 1, fontSize: 12, fontWeight: 400 }}>
-                    The content of the Popover.
-                </Typography>
-                <Typography className='bg-violet-200 border-b border-violet-300' sx={{ px: 2, py: 1, fontSize: 12, fontWeight: 400 }}>
-                    The content of the Popover.
-                </Typography>
-                <Typography className='bg-violet-200 border-b border-violet-300' sx={{ px: 2, py: 1, fontSize: 12, fontWeight: 400 }}>
-                    The content of the Popover.
-                </Typography>
-                <Typography className='bg-violet-200 border-b border-violet-300' sx={{ px: 2, py: 1, fontSize: 12, fontWeight: 400 }}>
-                    The content of the Popover.
-                </Typography>
-                <Typography className='bg-violet-200' sx={{ px: 2, py: 1, fontSize: 12, fontWeight: 400 }}>
-                    The content of the Popover.
-                </Typography>
+                <div className='flex bg-violet-200 py-2 px-3 gap-5'>
+                    <Link href='/' >
+                        <HiHome className='text-2xl' />
+                    </Link>
+
+                    <AdminOnlyButtons>
+                        <Link href='/admin/home' >
+                            <HiUser className='text-2xl' />
+                        </Link>
+                    </AdminOnlyButtons>
+
+                    <ShowOnLogin>
+                        <Link href="/" onClick={() => logOut()}>
+                            <HiLogout className='text-2xl' />
+                        </Link>
+                    </ShowOnLogin>
+
+                    <ShowOnLogout>
+                        <Link href="/login" >
+                            <HiLogin className='text-2xl' />
+                        </Link>
+                    </ShowOnLogout>
+                </div>
             </Popover>
         </div>
     );

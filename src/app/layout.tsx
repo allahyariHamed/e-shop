@@ -6,7 +6,6 @@ import 'react-toastify/ReactToastify.css';
 import { Provider } from 'react-redux';
 import store from '../utils/redux/store';
 import Navbar from '../components/Navbar';
-import AdminFooter from '../components/AdminFooter';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -16,11 +15,10 @@ const nunito = Nunito({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={nunito.className}>
-      <body className='relative h-screen'>
+      <body className='relative h-screen m-0 p-1 flex-col justify-between flex gap-2'>
         <Provider store={store}>
           <Navbar />
           {children}
-          <AdminFooter />
           <ToastContainer position="bottom-center" autoClose={2000} />
         </Provider>
       </body>

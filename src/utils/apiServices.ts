@@ -1,23 +1,30 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+'use client'
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import { toast } from "react-toastify"
-import { auth } from "../firebase/config"
+import { auth, DB } from "../firebase/config"
 import { useRouter } from "next/navigation"
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, Timestamp } from "firebase/firestore"
+import { Products } from "../types/types."
+import { storeProducts } from "./redux/productSlice"
+import React from "react"
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 
 export const register = (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>, router: ReturnType<typeof useRouter>) => {
     e.preventDefault()
-    const { Email, Password, ConfirmPassword } = formData
-    if (Password !== ConfirmPassword) {
+    const { email, password, confirmpassword } = formData
+    if (password !== confirmpassword) {
         toast.error("password is not match with confirm password!")
         return
     }
-    createUserWithEmailAndPassword(auth, Email, Password).then(() => {
-        // const user = userCredential.user;
+    createUserWithEmailAndPassword(auth, email, password).then(() => {
         toast.success('user created!')
         router.push('/')
+
     }).catch((error) => {
         toast.error(error.message)
     });
 }
+
 export const login = (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>, router: ReturnType<typeof useRouter>) => {
     e.preventDefault()
     const { Email, Password } = formData
@@ -28,15 +35,18 @@ export const login = (e: React.FormEvent<HTMLFormElement>, formData: Record<stri
         toast.error(error.message)
     });
 }
+
 export const loginByGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then(() => {
         toast.success('logged in by google')
+        console.log(auth)
         // router.push('/')
     }).catch((error) => {
         toast.error(error.message)
     })
 }
+
 export const logOut = () => {
     signOut(auth).then(() => {
         toast.success('user logged out')
@@ -45,6 +55,7 @@ export const logOut = () => {
         toast.error(error)
     });
 }
+
 export const resetPassword = (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>, router: ReturnType<typeof useRouter>) => {
     e.preventDefault()
     const { Email } = formData
@@ -55,17 +66,79 @@ export const resetPassword = (e: React.FormEvent<HTMLFormElement>, formData: Rec
         toast.error(error.message)
     });
 }
-export const getSignedInUser = () => {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
 
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
-            // const uid = user.uid;
-            // ...
+export const addProduct = async (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>) => {
+    e.preventDefault()
+    const { product_name, product_price, product_brand, product_description, product_category, product_image } = formData
+    try {
+        await addDoc(collection(DB, 'products'), {
+            name: product_name,
+            price: product_price,
+            brand: product_brand,
+            description: product_description,
+            category: product_category,
+            image: product_image,
+            createTime: Timestamp.now().toDate()
+        })
+        // router.push('/admin/allProducts')
+        toast.success('document added!')
+
+    } catch (err) {
+        if (err instanceof Error) {
+            toast.error(err.message);
         } else {
-            // User is signed out
-            // ...
+            toast.error(String(err));
         }
-    });
+    }
+}
+
+export const getProducts = async (setProducts: React.Dispatch<React.SetStateAction<Products>>, dispatch: Dispatch<UnknownAction>) => {
+    try {
+        const productRef = collection(DB, 'products')
+        const q = query(productRef, orderBy('createTime', 'desc'))
+
+        onSnapshot(q, (snapshot) => {
+            const allProducts = snapshot.docs.map((doc) => {
+
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    image: data.image ?? "",
+                    category: data.category ?? "",
+                    name: data.name ?? "",
+                    description: data.description ?? "",
+                    price: data.price ?? "",
+                    brand: data.brand ?? "",
+                    createTime: data.createTime.toDate().toISOString().split('T')[0]
+                };
+            })
+
+            setProducts(allProducts)
+            dispatch(storeProducts({
+                products: allProducts
+            }))
+        })
+    } catch (err) {
+
+        if (err instanceof Error) {
+            toast.error(err.message);
+        } else {
+            toast.error(String(err));
+        }
+    }
+}
+
+export const deleteProduct = async (id: string) => {
+
+    try {
+        await deleteDoc(doc(DB, "products", id));
+        toast.success('document deleted!')
+
+    } catch (err) {
+        if (err instanceof Error) {
+            toast.error(err.message);
+        } else {
+            toast.error(String(err));
+        }
+    }
 }

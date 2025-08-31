@@ -1,42 +1,22 @@
 'use client'
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GoogleAuthButton from "./GoogleAuthButton";
 import 'react-toastify/ReactToastify.css'
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/config";
-import { useDispatch } from "react-redux";
-import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../utils/redux/authSlice";
-import { FormProps } from "../types/types.";
+import { FormProps, SelectCategoryProps, UploadImageProps } from "../types/types.";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import { fileToBase64 } from "../utils/base64Converter";
 
-const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, handleGoogleAuth, inputs }) => {
+const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, handleGoogleAuth, inputs, addProductForm }) => {
     const [formData, setFormData] = useState<Record<string, string>>({});
     const [focus, SetFocus] = useState<string>('')
-    const [extractedUserName, SetExtractedUserName] = useState<string>()
+    const [category, setCategory] = useState<string>('')
     const router = useRouter();
-    const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-
-
-                if (user?.displayName == null || '') {
-                    SetExtractedUserName(user?.email?.split('@')[0])
-                }
-                dispatch(SET_ACTIVE_USER({
-                    email: user?.email || '',
-                    userName: user?.displayName || extractedUserName,
-                    userId: user?.uid
-                }))
-            } else {
-                dispatch(REMOVE_ACTIVE_USER())
-            }
-        })
-    }, [dispatch, extractedUserName])
-
 
     return (
         <div className="p-3 w-full rounded-lg shadow bg-violet-200">
@@ -45,17 +25,20 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, ha
                 {button}
             </div>
 
-            <form onSubmit={(e) => handleSubmit?.(e, formData, router)} className="my-5">
+            <form onSubmit={(e) => {
+                handleSubmit?.(e, formData, router)
+                setCategory('')
+                setFormData({})
+            }} className="my-5">
                 {
                     inputs?.map((input, i) => (
                         < div key={i} className="relative my-5" >
                             <input
-                                // type={label.toLowerCase().includes('password') ? 'password' : label.toLowerCase() === 'email' ? 'email' : 'text'}
                                 type={input.type}
                                 id={input.label}
                                 name={input.label}
-                                value={formData[input.label] || ''}
-                                onChange={(e) => setFormData({ ...formData, [input.label]: e.target.value })}
+                                value={formData[input.label.replace(' ', '_')] || ''}
+                                onChange={(e) => setFormData({ ...formData, [input.label.replace(' ', '_')]: e.target.value })}
                                 className="peer w-full bg-white placeholder:text-slate-500 text-black text-xs rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow focus:shadow-none"
                                 required
                                 onFocus={() => SetFocus(input.label)}
@@ -68,6 +51,11 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, ha
                         </div>
                     ))
                 }
+
+                {addProductForm && <SelectCategory formData={formData} setFormData={setFormData} category={category} setCategory={setCategory} />}
+
+                {addProductForm && <UploadImage formData={formData} setFormData={setFormData} SetFocus={SetFocus} focus={focus} />}
+
                 <div className="flex gap-2">
                     {
                         button && <button type="submit" className="font-bold button">
@@ -93,4 +81,70 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, ha
         </div >
     );
 };
+
+function SelectCategory({ formData, setFormData, category, setCategory }: SelectCategoryProps) {
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setCategory(event.target.value as string)
+        setFormData({ ...formData, ['product_category']: event.target.value })
+    };
+
+    return (
+        <Box>
+            <FormControl fullWidth size="small">
+                <InputLabel id="select-label" sx={{ fontSize: 14 }}>category</InputLabel>
+                <Select
+                    labelId="select-label"
+                    id="demo-simple-select"
+                    value={category}
+                    label="product category"
+                    onChange={handleChange}
+                    className="mb-5 bg-white"
+                >
+                    <MenuItem value={'electronics'}>electronics</MenuItem>
+                    <MenuItem value={'fashion'}>fashion</MenuItem>
+                    <MenuItem value={'cars'}>cars</MenuItem>
+                </Select>
+            </FormControl>
+        </Box>
+    );
+}
+
+function UploadImage({ formData, setFormData, SetFocus, focus }: UploadImageProps) {
+    const input = { label: 'product image', type: 'file' }
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const event = e.target.files
+
+        if (event && event[0]) {
+            const file = event[0]
+            if (file) {
+                const base64 = await fileToBase64(file)
+                setFormData({ ...formData, [input.label.replace(' ', '_')]: base64 })
+            }
+        }
+    }
+
+    return (
+        <div className="relative mb-5" >
+            <input
+                accept="image/*"
+                type={input.type}
+                id={input.label}
+                name={input.label}
+                onChange={handleFileChange}
+                className="peer w-full bg-white placeholder:text-slate-500 text-black text-xs rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow focus:shadow-none"
+                required
+                onFocus={() => SetFocus(input.label)}
+                onBlur={() => SetFocus('')}
+                placeholder={focus === input.label ? '' : input.label}
+            />
+
+            <label htmlFor={input.label} className="label">
+                {input.label}
+            </label>
+        </div>
+    );
+}
+
 export default Form; 

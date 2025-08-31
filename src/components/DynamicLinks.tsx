@@ -16,11 +16,11 @@ export const ShowOnLogout = ({ children }: DynamicRoutes) => {
 }
 export const AdminOnlyRoutes = ({ children }: DynamicRoutes) => {
 
-    // const adminEmail = useSelector(selectEmail)
-    const adminEmail = 'allahyarihamed53@gmail.com'
+    const adminEmail = useSelector(selectEmail)
+    console.log('adminEmail',adminEmail)
     if (adminEmail === 'allahyarihamed53@gmail.com') return children
     return (
-        <div className='p-2'>
+        <div className='px-1 h-screen'>
             <div className='bg-violet-200 px-3 py-2 rounded-md shadow'>
                 <div className='text-lg font-bold'>
                     Permission Denied!

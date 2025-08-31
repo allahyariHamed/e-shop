@@ -49,6 +49,24 @@ const itemData = [
         rows: 1,
         cols: 2,
     },
+    {  
+        img: '/assets/images3.jfif',
+        title: 'Breakfast',
+        rows: 1,
+        cols: 2,
+    },
+    {  
+        img: '/assets/images4.jfif',
+        title: 'Breakfast',
+        rows: 1,
+        cols: 1,
+    },
+    {  
+        img: '/assets/images5.jfif',
+        title: 'Breakfast',
+        rows: 1,
+        cols: 3,
+    },
 ];
 
 
@@ -70,6 +88,7 @@ const ImageSlider = () => {
                                 loading="lazy"
                                 fill
                                 className='rounded'
+                                sizes='100%'
                             />
                         </ImageListItem>
                     ))

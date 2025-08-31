@@ -3,9 +3,10 @@ import AdminFooter from "@/src/components/AdminFooter"
 import { AdminOnlyRoutes } from "@/src/components/DynamicLinks"
 
 const AdminHome = () => {
+
   return (
     <AdminOnlyRoutes>
-      <div className="px-2">
+      <div className="px-1 h-screen">
         <AddProduct />
       </div>
       <AdminFooter />
