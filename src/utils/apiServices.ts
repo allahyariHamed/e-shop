@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEm
 import { toast } from "react-toastify"
 import { auth, DB } from "../firebase/config"
 import { useRouter } from "next/navigation"
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, Timestamp } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, Timestamp } from "firebase/firestore"
 import { Products } from "../types/types."
 import { storeProducts } from "./redux/productSlice"
 import React from "react"
@@ -50,7 +50,6 @@ export const loginByGoogle = () => {
 export const logOut = () => {
     signOut(auth).then(() => {
         toast.success('user logged out')
-        console.log('logout')
     }).catch((error) => {
         toast.error(error)
     });
@@ -92,7 +91,7 @@ export const addProduct = async (e: React.FormEvent<HTMLFormElement>, formData: 
     }
 }
 
-export const getProducts = async (setProducts: React.Dispatch<React.SetStateAction<Products>>, dispatch: Dispatch<UnknownAction>) => {
+export const getProducts = async (setProducts: React.Dispatch<React.SetStateAction<Products[]>>, dispatch: Dispatch<UnknownAction>) => {
     try {
         const productRef = collection(DB, 'products')
         const q = query(productRef, orderBy('createTime', 'desc'))
@@ -112,7 +111,6 @@ export const getProducts = async (setProducts: React.Dispatch<React.SetStateActi
                     createTime: data.createTime.toDate().toISOString().split('T')[0]
                 };
             })
-
             setProducts(allProducts)
             dispatch(storeProducts({
                 products: allProducts
@@ -133,6 +131,31 @@ export const deleteProduct = async (id: string) => {
     try {
         await deleteDoc(doc(DB, "products", id));
         toast.success('document deleted!')
+
+    } catch (err) {
+        if (err instanceof Error) {
+            toast.error(err.message);
+        } else {
+            toast.error(String(err));
+        }
+    }
+}
+
+export const editProduct = async (e: React.FormEvent<HTMLFormElement>, router: ReturnType<typeof useRouter>, id: string, formData: Record<string, string>) => {
+    e.preventDefault()
+    const { name, price, brand, description, category, image } = formData
+    try {
+        await setDoc(doc(DB, "products", id), {
+            name,
+            price,
+            brand,
+            description,
+            category,
+            image,
+            createTime: Timestamp.now().toDate()
+        });
+        toast.success('document edited!')
+        router.push('/admin/allProducts')
 
     } catch (err) {
         if (err instanceof Error) {

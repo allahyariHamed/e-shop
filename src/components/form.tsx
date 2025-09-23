@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GoogleAuthButton from "./GoogleAuthButton";
 import 'react-toastify/ReactToastify.css'
-import { FormProps, SelectCategoryProps, UploadImageProps } from "../types/types.";
+import { FormProps, CategoryProps, UploadImageProps } from "../types/types.";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
@@ -37,7 +37,7 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, ha
                                 type={input.type}
                                 id={input.label}
                                 name={input.label}
-                                value={formData[input.label.replace(' ', '_')] || ''}
+                                value={formData[input.label.replace(' ', '_')]}
                                 onChange={(e) => setFormData({ ...formData, [input.label.replace(' ', '_')]: e.target.value })}
                                 className="peer w-full bg-white placeholder:text-slate-500 text-black text-xs rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow focus:shadow-none"
                                 required
@@ -82,7 +82,7 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, ha
     );
 };
 
-function SelectCategory({ formData, setFormData, category, setCategory }: SelectCategoryProps) {
+function SelectCategory({ formData, setFormData, category, setCategory }: CategoryProps) {
 
     const handleChange = (event: SelectChangeEvent) => {
         setCategory(event.target.value as string)
@@ -101,16 +101,18 @@ function SelectCategory({ formData, setFormData, category, setCategory }: Select
                     onChange={handleChange}
                     className="mb-5 bg-white"
                 >
-                    <MenuItem value={'electronics'}>electronics</MenuItem>
+                    <MenuItem value={'spring'}>spring</MenuItem>
+                    <MenuItem value={'summer'}>summer</MenuItem>
+                    <MenuItem value={'fall'}>fall</MenuItem>
+                    <MenuItem value={'winter'}>winter</MenuItem>
                     <MenuItem value={'fashion'}>fashion</MenuItem>
-                    <MenuItem value={'cars'}>cars</MenuItem>
                 </Select>
             </FormControl>
         </Box>
     );
 }
 
-function UploadImage({ formData, setFormData, SetFocus, focus }: UploadImageProps) {
+function UploadImage({ formData, setFormData }: UploadImageProps) {
     const input = { label: 'product image', type: 'file' }
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,15 +131,12 @@ function UploadImage({ formData, setFormData, SetFocus, focus }: UploadImageProp
         <div className="relative mb-5" >
             <input
                 accept="image/*"
-                type={input.type}
-                id={input.label}
-                name={input.label}
+                type='file'
+                id='product image'
+                name='product image'
                 onChange={handleFileChange}
                 className="peer w-full bg-white placeholder:text-slate-500 text-black text-xs rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow focus:shadow-none"
                 required
-                onFocus={() => SetFocus(input.label)}
-                onBlur={() => SetFocus('')}
-                placeholder={focus === input.label ? '' : input.label}
             />
 
             <label htmlFor={input.label} className="label">

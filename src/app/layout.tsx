@@ -15,7 +15,7 @@ const nunito = Nunito({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={nunito.className}>
-      <body className='relative h-screen m-0 p-1 flex-col justify-between flex gap-2'>
+      <body className='m-0 p-1'>
         <Provider store={store}>
           <Navbar />
           {children}

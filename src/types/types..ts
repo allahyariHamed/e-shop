@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 
 export interface AuthState {
@@ -19,6 +19,7 @@ export interface FormProps {
     handleGoogleAuth?: () => void,
     inputs: { label: string; type: string; }[],
     addProductForm?: boolean
+    slug?: Record<string, string>
 }
 
 export interface GoogleAuth {
@@ -37,7 +38,7 @@ export interface UploadImageProps {
     SetFocus: React.Dispatch<React.SetStateAction<string>>
 }
 
-export interface SelectCategoryProps {
+export interface CategoryProps {
     formData: Record<string, string>,
     setFormData: React.Dispatch<React.SetStateAction<Record<string, string>>>,
     category: string
@@ -53,9 +54,9 @@ export type Products = {
     price: string,
     brand: string,
     createTime: string,
-}[]
+}
 
-export interface SingleProductProps {
+export interface AdminSingleProduct {
     id: string,
     image: string,
     category: string,
@@ -64,4 +65,43 @@ export interface SingleProductProps {
     price: string,
     brand: string,
     createTime: string,
+}
+
+export type productInitialState = {
+    products: {
+        id: string,
+        image: string,
+        category: string,
+        name: string,
+        description: string,
+        price: string,
+        brand: string,
+        createTime: string,
+    }[]
+}
+
+export interface ClientProductCard {
+    layout: string
+    image: string
+    name: string
+    brand: string
+    price: string
+}
+
+export type FooterProps = {
+    layout: string
+    setLayout: Dispatch<SetStateAction<'list' | 'grid'>>
+}
+
+export type filteredProducts = {
+    filteredProducts: {
+        id: string,
+        image: string,
+        category: string,
+        name: string,
+        description: string,
+        price: string,
+        brand: string,
+        createTime: string,
+    }[]
 }

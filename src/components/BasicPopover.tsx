@@ -1,68 +1,56 @@
-import Popover from '@mui/material/Popover';
-import Link from 'next/link';
 import { useState } from 'react';
-import { HiDotsVertical, HiLogin, HiLogout, HiUser } from 'react-icons/hi';
-import { AdminOnlyButtons, ShowOnLogin, ShowOnLogout } from './DynamicLinks';
-import { logOut } from '../utils/apiServices';
-import { HiHome } from 'react-icons/hi2';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { HiDotsVertical } from 'react-icons/hi';
 
-const BasicPopover = () => {
-    const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+const BasicMenu = () => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
-    const openPopover = (event: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const closePopover = () => {
+    const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
     return (
         <div>
-            <div className='text-xl px-2' aria-describedby={id} onClick={openPopover} >
-                <HiDotsVertical />
-            </div>
-            <Popover
-                className='mt-4'
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={closePopover}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                disableAutoFocus
-                disableRestoreFocus
+            <Button
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                sx={{ minWidth: 20, paddingX: 0, color: 'black' }}
             >
-                <div className='flex bg-violet-200 py-2 px-3 gap-5'>
-                    <Link href='/' >
-                        <HiHome className='text-2xl' />
-                    </Link>
+                <HiDotsVertical className='text-2xl' />
+            </Button>
 
-                    <AdminOnlyButtons>
-                        <Link href='/admin/home' >
-                            <HiUser className='text-2xl' />
-                        </Link>
-                    </AdminOnlyButtons>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                slotProps={{
+                    list: {
+                        'aria-labelledby': 'basic-button',
+                        sx: {
+                            paddingY: 0,
+                            minWidth: 200,
+                        }
+                    },
+                }}
+            >
+                <MenuItem sx={{ fontWeight: 'bold', fontFamily: 'Nunito', fontSize: '13px', backgroundColor: '#ddd6fe', borderBottom: '1px silver solid' }} onClick={handleClose}>
+                    hello
+                </MenuItem>
 
-                    <ShowOnLogin>
-                        <Link href="/" onClick={() => logOut()}>
-                            <HiLogout className='text-2xl' />
-                        </Link>
-                    </ShowOnLogin>
+            </Menu>
 
-                    <ShowOnLogout>
-                        <Link href="/login" >
-                            <HiLogin className='text-2xl' />
-                        </Link>
-                    </ShowOnLogout>
-                </div>
-            </Popover>
         </div>
     );
 }
-export default BasicPopover
+export default BasicMenu
