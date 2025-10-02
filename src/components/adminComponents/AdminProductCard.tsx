@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { SingleProductProps } from "../../types/types."
 import { HiPencil } from "react-icons/hi"
 import { HiArchiveBoxXMark } from "react-icons/hi2"
 import { Confirm } from "notiflix"
 import { deleteProduct } from "../../utils/apiServices"
 import Base64Image from "../Base64Image"
+import { Product } from "@/src/types/types"
 
-const AdminProductCard = ({ id, image, category, name, description, price, brand, createTime }: SingleProductProps) => {
+const AdminProductCard = ({ id, image, category, name, description, price, brand, createTime }: Product) => {
     return (
         <div className="border border-violet-300 shadow rounded">
             <div>

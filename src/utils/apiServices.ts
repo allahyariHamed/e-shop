@@ -4,7 +4,7 @@ import { toast } from "react-toastify"
 import { auth, DB } from "../firebase/config"
 import { useRouter } from "next/navigation"
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, Timestamp } from "firebase/firestore"
-import { Products } from "../types/types."
+import { Products } from "../types/types"
 import { storeProducts } from "./redux/productSlice"
 import React from "react"
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
@@ -163,5 +163,17 @@ export const editProduct = async (e: React.FormEvent<HTMLFormElement>, router: R
         } else {
             toast.error(String(err));
         }
+    }
+}
+
+export const checkVPN = async () => {
+    try {
+        const res = await fetch("https://ipwho.is/");
+        const data = await res.json();
+        if (data.country === 'Iran') {
+            alert("⚠️ Please connect to VPN to use this app !");
+        }
+    } catch {
+        alert("⚠️ Please check your connection !");
     }
 }

@@ -2,7 +2,7 @@ import { FC } from "react"
 
 const Loading: FC = () => {
     return (
-        <div>loading...</div>
+        <div className="text-center">Loading...</div>
     )
 }
 

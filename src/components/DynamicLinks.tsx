@@ -1,7 +1,7 @@
 'use client'
 import { useSelector } from 'react-redux'
 import { selectEmail, selectLoggedIn } from '../utils/redux/authSlice'
-import { DynamicRoutes } from '../types/types.'
+import { DynamicRoutes } from '../types/types'
 import Link from 'next/link'
 
 export const ShowOnLogin = ({ children }: DynamicRoutes) => {

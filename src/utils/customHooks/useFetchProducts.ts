@@ -4,13 +4,16 @@ import { useDispatch } from "react-redux"
 import { storeProducts } from "../redux/productSlice"
 import { toast } from "react-toastify"
 import { DB } from "@/src/firebase/config"
-import { Products } from "@/src/types/types."
+import { checkVPN } from "../apiServices"
+import { Product } from "@/src/types/types"
 
-export const useFetchProducts = (collectionName: string): Products[] => {
-    const [data, setData] = useState<Products[]>([])
+export const useFetchProducts = (collectionName: string): Product[] => {
+    const [data, setData] = useState<Product[]>([])
     const dispatch = useDispatch()
 
     useEffect(() => {
+        checkVPN()
+
         const getProducts = async () => {
             try {
                 const productRef = collection(DB, collectionName)
@@ -37,7 +40,6 @@ export const useFetchProducts = (collectionName: string): Products[] => {
                     }))
                 })
             } catch (err) {
-
                 if (err instanceof Error) {
                     toast.error(err.message);
                 } else {

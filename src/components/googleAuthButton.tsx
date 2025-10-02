@@ -1,7 +1,7 @@
 'use client'
 import React from "react"
 import { FcGoogle } from "react-icons/fc"
-import { GoogleAuth } from "../types/types."
+import { GoogleAuth } from "../types/types"
 
 const GoogleAuthButton: React.FC<GoogleAuth> = ({ handleGoogleAuth, button }) => {
     return (

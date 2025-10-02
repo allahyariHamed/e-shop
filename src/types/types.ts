@@ -45,7 +45,7 @@ export interface CategoryProps {
     setCategory: React.Dispatch<React.SetStateAction<string>>,
 }
 
-export type Products = {
+export type Product = {
     id: string,
     image: string,
     category: string,
@@ -56,16 +56,16 @@ export type Products = {
     createTime: string,
 }
 
-export interface AdminSingleProduct {
-    id: string,
-    image: string,
-    category: string,
-    name: string,
-    description: string,
-    price: string,
-    brand: string,
-    createTime: string,
-}
+// export interface AdminSingleProduct {
+//     id: string,
+//     image: string,
+//     category: string,
+//     name: string,
+//     description: string,
+//     price: string,
+//     brand: string,
+//     createTime: string,
+// }
 
 export type productInitialState = {
     products: {
@@ -78,6 +78,8 @@ export type productInitialState = {
         brand: string,
         createTime: string,
     }[]
+    minPrice: number
+    maxPrice: number
 }
 
 export interface ClientProductCard {
@@ -86,6 +88,7 @@ export interface ClientProductCard {
     name: string
     brand: string
     price: string
+    product: Product
 }
 
 export type FooterProps = {
@@ -103,5 +106,6 @@ export type filteredProducts = {
         price: string,
         brand: string,
         createTime: string,
-    }[]
+    }[],
+    type: string
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import GoogleAuthButton from "./GoogleAuthButton";
 import 'react-toastify/ReactToastify.css'
-import { FormProps, CategoryProps, UploadImageProps } from "../types/types.";
+import { FormProps, CategoryProps, UploadImageProps } from "../types/types";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";

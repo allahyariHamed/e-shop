@@ -1,9 +1,13 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 import { FC } from 'react'
-import { ClientProductCard } from '../types/types.'
+import { ClientProductCard } from '../types/types'
+import { useDispatch } from 'react-redux'
+import { addToBascket } from '../utils/redux/shoppingBascet'
 
-const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price }) => {
+const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price, product }) => {
+    const dispatch = useDispatch()
+
     return (
         <div className={clsx("border border-violet-300 shadow rounded p-1",
             layout === 'list' && 'flex '
@@ -33,7 +37,7 @@ const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price 
                         {price} $
                     </div>
 
-                    <div className="bg-violet-200 text-sm font-bold px-2 py-1 rounded shadow">
+                    <div className="bg-violet-200 text-sm font-bold px-2 py-1 rounded shadow" onClick={() => dispatch(addToBascket({ product }))}>
                         Buy
                     </div>
 
