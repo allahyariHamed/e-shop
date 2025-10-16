@@ -1,11 +1,12 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import React, { Dispatch, SetStateAction } from "react";
-import { useRouter } from "next/navigation";
+// import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export interface AuthState {
-    LoggedIn: boolean;
-    email: string | null;
-    userName: string | null;
-    userId: string | null;
+    LoggedIn: boolean
+    email: string
+    userName: string
+    userId: string
 }
 
 export interface FormProps {
@@ -14,9 +15,10 @@ export interface FormProps {
     handleSubmit: (
         e: React.FormEvent<HTMLFormElement>,
         formData: Record<string, string>,
-        router: ReturnType<typeof useRouter>,
+        router: AppRouterInstance,
+        pervURL: string
     ) => void
-    handleGoogleAuth?: () => void,
+    // handleGoogleAuth?: () => void,
     inputs: { label: string; type: string; }[],
     addProductForm?: boolean
     slug?: Record<string, string>

@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { storeProducts } from "../redux/productSlice"
 import { toast } from "react-toastify"
 import { DB } from "@/src/firebase/config"
-import { checkVPN } from "../apiServices"
 import { Product } from "@/src/types/types"
 
 export const useFetchProducts = (collectionName: string): Product[] => {
@@ -12,8 +11,6 @@ export const useFetchProducts = (collectionName: string): Product[] => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        checkVPN()
-
         const getProducts = async () => {
             try {
                 const productRef = collection(DB, collectionName)
@@ -34,10 +31,10 @@ export const useFetchProducts = (collectionName: string): Product[] => {
                             createTime: data.createTime.toDate().toISOString().split('T')[0]
                         };
                     })
-                    setData(allProducts)
                     dispatch(storeProducts({
                         products: allProducts
                     }))
+                    setData(allProducts)
                 })
             } catch (err) {
                 if (err instanceof Error) {
@@ -47,9 +44,9 @@ export const useFetchProducts = (collectionName: string): Product[] => {
                 }
             }
         }
-        getProducts()
 
-    }, [dispatch, collectionName])
+        getProducts()
+    }, [])
 
     return data
 }

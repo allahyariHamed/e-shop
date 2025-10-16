@@ -8,29 +8,30 @@ import { Product } from "@/src/types/types"
 
 const AdminProductCard = ({ id, image, category, name, description, price, brand, createTime }: Product) => {
     return (
-        <div className="border border-violet-300 shadow rounded">
-            <div>
+        <div className="bg-violet-200 shadow rounded">
+            <div className="p-1">
                 <Base64Image src={image} name={name} />
             </div>
 
-            <div className="px-2 py-1">
+            <div className="px-2">
                 <div>
-                    <div className="font-bold text-lg">{brand}</div>
-                    <div className="text-gray-600 text-sm">{description}</div>
+                    <div className="font-bold text-lg py-1 truncate">{name}</div>
+                    <div className="text-sm">{brand}</div>
                 </div>
 
-                <div className="text-gray-600 text-sm">
-                    {category}
+                <div className="text-sm">
+                    <div>{category}</div>
+                    <div>{description}</div>
                 </div>
 
-                <div className="text-gray-600 text-xs">
+                <div className="text-xs">
                     {createTime}
                 </div>
 
-                <div className="text-gray-700 flex justify-between text-sm">
+                <div className="flex justify-between text-sm py-1">
 
                     <div className="font-bold">
-                        {price}
+                        {price} T
                     </div>
 
                     <div className="flex gap-2">

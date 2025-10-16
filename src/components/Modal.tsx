@@ -19,7 +19,7 @@ const ModalComponent: FC<props> = ({ children, Icon, open, setOpen }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        minWidth: 200,
+        minWidth: { xs: 300, sm: 400, lg: 450 },
         bgcolor: '#ddd6fe',
         borderRadius: 2,
         boxShadow: 20,
@@ -28,8 +28,8 @@ const ModalComponent: FC<props> = ({ children, Icon, open, setOpen }) => {
 
     return (
         <div>
-            <div onClick={() => setOpen(true)}>
-                <Icon className="text-2xl" />
+            <div onClick={() => setOpen(true)} className='hover:cursor-pointer'>
+                <Icon className="text-2xl sm:text-3xl" />
             </div>
 
             <Modal

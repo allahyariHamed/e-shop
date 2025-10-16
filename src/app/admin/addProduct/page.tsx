@@ -12,10 +12,10 @@ const AddProduct = () => {
     ]
     return (
         <>
-            <div className="px-1 h-screen">
+            <AdminFooter />
+            <div>
                 <Form button={button} inputs={inputs} handleSubmit={addProduct} addProductForm={true} />
             </div>
-            <AdminFooter />
         </>
     )
 }

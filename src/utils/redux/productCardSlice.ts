@@ -5,7 +5,7 @@ type State = {
 }
 
 const initialState: State = {
-    layout: 'list'
+    layout: 'grid'
 }
 
 const productCardSlice = createSlice({

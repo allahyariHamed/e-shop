@@ -27,7 +27,7 @@
 }
 
 .button {
-  @apply shadow hover:bg-violet-100 active:shadow-none bg-white border rounded w-full py-1
+  @apply shadow hover:bg-violet-100 active:shadow-none bg-white border rounded w-full py-1 sm:py-2
 }
 
 .label {

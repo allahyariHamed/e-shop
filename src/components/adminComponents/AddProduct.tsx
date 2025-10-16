@@ -1,5 +1,5 @@
-import { addProduct } from "../utils/apiServices"
-import Form from "./Form"
+import { addProduct } from "@/src/utils/apiServices"
+import Form from "../Form"
 
 const AddProduct = () => {
     const button = ['add product']
@@ -10,7 +10,9 @@ const AddProduct = () => {
         { label: 'product description', type: 'text' },
     ]
     return (
-        <Form button={button} inputs={inputs} handleSubmit={addProduct} addProductForm={true} />
+        <div className="h-screen flex items-center justify-center border p-5">
+            <Form button={button} inputs={inputs} handleSubmit={addProduct} addProductForm={true} />
+        </div>
     )
 }
 

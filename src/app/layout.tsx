@@ -5,7 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import { Provider } from 'react-redux';
 import store from '../utils/redux/store';
-import Navbar from '../components/Navbar';
+import { useEffect } from 'react';
+import { checkVPN } from '../utils/apiServices';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -13,11 +14,15 @@ const nunito = Nunito({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  
+  useEffect(() => {
+    checkVPN()
+  }, [])
+
   return (
     <html lang="en" className={nunito.className}>
-      <body className='m-0 p-1'>
+      <body className='m-0 px-2 lg:px-3 lg:w-5xl xl:w-6xl mx-auto'>
         <Provider store={store}>
-          <Navbar />
           {children}
           <ToastContainer position="bottom-center" autoClose={2000} />
         </Provider>

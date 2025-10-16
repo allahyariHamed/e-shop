@@ -9,12 +9,12 @@ const AdminFooter = () => {
     ]
 
     return (
-        <div className="w-full sticky bottom-0 bg-white">
-            <div className="px-3 shadow bg-violet-200 rounded-md py-2 flex justify-around">
+        <div className="w-full sticky top-0 bg-white py-2">
+            <div className="shadow bg-violet-200 rounded py-2 flex justify-between px-2">
                 {
                     hrefs.map((element, i) => (
                         <Link key={i} href={element.href}>
-                            <div className="text-xs bg-white p-1 rounded font-bold shadow">
+                            <div className="text-xs bg-white px-2 py-1 rounded font-bold shadow">
                                 {element.text}
                             </div>
                         </Link>

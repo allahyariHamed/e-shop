@@ -23,16 +23,16 @@ const SideBar: FC<props> = ({ setOpen }) => {
 
     return (
         <div>
-            <div className="grid gap-5">
+            <div className="grid gap-5 sm:gap-7">
 
                 <div>
-                    <div className="text-xl font-bold">
+                    <div className="text-xl font-bold sm:text-2xl mb-2">
                         Categories
                     </div>
                     <div className="flex gap-1">
                         {
                             allCategories.map((element) => (
-                                <div key={element} className="bg-white rounded shadow px-2 w-fit" onClick={() => {
+                                <div key={element} className="bg-white rounded shadow px-2 w-fit font-bold sm:text-lg" onClick={() => {
                                     dispatch(filterByCategory({ products, category: element }))
                                 }}>
                                     {element}
@@ -43,10 +43,10 @@ const SideBar: FC<props> = ({ setOpen }) => {
                 </div>
 
                 <div>
-                    <div className="text-xl font-bold">
+                    <div className="text-xl font-bold sm:text-2xl">
                         Brands
                     </div>
-                    <select name="" id="" className="bg-white rounded shadow px-1 w-full" onChange={(e) => dispatch(filterByBrand({ products, brand: e.target.value }))}>
+                    <select name="" id="" className="bg-white rounded shadow px-1 w-full font-bold sm:py-1 sm:text-lg" onChange={(e) => dispatch(filterByBrand({ products, brand: e.target.value }))}>
                         {
                             allBrands.map((element) => (
                                 <option value={element} key={element}>
@@ -58,7 +58,7 @@ const SideBar: FC<props> = ({ setOpen }) => {
                 </div>
 
                 <div>
-                    <div onClick={() => dispatch(getPriceRange({ products }))}>
+                    <div onClick={() => dispatch(getPriceRange({ products }))} className="font-bold sm:text-xl">
                         {`price : ${price}`}
                     </div>
                     <div>
@@ -69,11 +69,11 @@ const SideBar: FC<props> = ({ setOpen }) => {
                     </div>
                 </div>
 
-                <div className="flex justify-between font-bold text-sm">
-                    <div className="bg-violet-200 px-2 py-1 rounded shadow border-2 border-violet-500" onClick={() => { dispatch(reset()); setOpen(false) }}>
+                <div className="flex justify-between font-bold text-sm sm:text-base sm:justify-around">
+                    <div className="bg-black text-white px-3 py-1 rounded shadow" onClick={() => dispatch(reset())}>
                         reset
                     </div>
-                    <div className="bg-violet-200 px-2 py-1 rounded shadow border-2 border-violet-500">
+                    <div className="bg-black px-3 py-1 text-white rounded shadow" onClick={() => setOpen(false)}>
                         accept
                     </div>
                 </div>

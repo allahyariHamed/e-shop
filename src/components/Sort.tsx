@@ -2,10 +2,10 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterBySort } from '../utils/redux/filterSlice';
-import { Products } from '../types/types';
+import { Product } from '../types/types';
 
 type props = {
-    products: Products[]
+    products: Product[]
     setOpen: Dispatch<SetStateAction<boolean>>
 }
 
@@ -15,16 +15,16 @@ const Sort: FC<props> = ({ products, setOpen }) => {
         { title: 'Latest' },
         { title: 'Lowest Price' },
         { title: 'Highest Price' },
-        { title: 'a - z' },
-        { title: 'z - a' }
+        { title: 'A - Z' },
+        { title: 'Z - A' }
     ]
 
     return (
-        <div>
-            <div className='text-center gap-2 grid'>
+        // <div>
+            <div className='text-center gap-2 grid sm:grid-cols-2'>
                 {
                     buttons.map((button, i) => (
-                        <div key={i} className='bg-white px-3 py-1 rounded shadow' onClick={() => {
+                        <div key={i} className='bg-white px-3 py-1 sm:py-2 sm:text-xl rounded shadow font-bold border' onClick={() => {
                             dispatch(filterBySort({
                                 type: button.title,
                                 payload: products
@@ -36,7 +36,7 @@ const Sort: FC<props> = ({ products, setOpen }) => {
                     ))
                 }
             </div>
-        </div>
+        // </div>
     );
 }
 export default Sort

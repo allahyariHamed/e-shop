@@ -12,7 +12,7 @@ const endOfTheFormTitle = { text: "Already have an account?", link: "login" }
 
 const Register = () => {
     return (
-        <div className="px-2">
+        <div className="px-2 h-screen flex items-center justify-center">
             <Form endOfTheFormTitle={endOfTheFormTitle} inputs={inputs} button={button} handleSubmit={register} />
         </div>
     );

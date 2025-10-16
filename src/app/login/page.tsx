@@ -1,6 +1,6 @@
 'use client'
 import Form from "@/src/components/Form"
-import { login, loginByGoogle } from "../../utils/apiServices"
+import { login } from "../../utils/apiServices"
 
 const Login = () => {
     const inputs = [
@@ -10,8 +10,8 @@ const Login = () => {
     const button = ['Login']
     const endOfTheFormTitle = { text: "Don't have an account?", link: "register" }
     return (
-        <div className="px-2">
-            <Form endOfTheFormTitle={endOfTheFormTitle} inputs={inputs} button={button} handleSubmit={login} handleGoogleAuth={loginByGoogle} />
+        <div className="px-2 h-screen flex items-center justify-center">
+            <Form endOfTheFormTitle={endOfTheFormTitle} inputs={inputs} button={button} handleSubmit={login} />
         </div>
     )
 }

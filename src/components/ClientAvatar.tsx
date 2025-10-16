@@ -3,19 +3,22 @@ import { AdminOnlyButtons, ShowOnLogin, ShowOnLogout } from "./DynamicLinks"
 import Menu from "@mui/material/Menu"
 import Button from "@mui/material/Button"
 import MenuItem from "@mui/material/MenuItem"
-import { useState } from "react"
+import { FC, useState } from "react"
+import { logOut } from "../utils/apiServices"
+import Link from "next/link"
+import { useSelector } from "react-redux"
+import { selectUserName } from "../utils/redux/authSlice"
+import { FiLink2 } from "react-icons/fi";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { TbLogin2, TbLogout2 } from "react-icons/tb";
+import { RiUserAddLine } from "react-icons/ri";
+// import { FiUser } from "react-icons/fi";
 
-const ClientAvatar = () => {
+const ClientAvatar: FC = () => {
+    const userName = useSelector(selectUserName)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const loggedInClient = [
-        { title: 'Profile' },
-        { title: 'Logout' },
-    ]
-    const noLoggedInClient = [
-        { title: 'Register' },
-        { title: 'Login' },
-    ]
+    const style = { fontWeight: 'bold', fontFamily: 'Nunito', "&:hover": { backgroundColor: '#222' }, fontSize: { xs: '13px', sm: '17px' }, backgroundColor: '#000', paddingY: { sm: 2 }, color: '#fff' }
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -29,81 +32,140 @@ const ClientAvatar = () => {
         <>
             <ShowOnLogin>
                 <Button
-                    id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    id="LoginButton"
+                    aria-controls={open ? 'ShowOnLogin' : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
-                    sx={{ minWidth: 20, paddingX: 0, color: 'black' }}
+                    sx={{ paddingX: 0 }}
                 >
-                    <Avatar alt="Hamed Allahyari" className='shadow' src="#" sx={{ width: 30, height: 30, bgcolor: '#000' }} />
+                    <Avatar alt={userName} className='shadow' src="#" sx={{ width: { xs: 30, sm: 35 }, height: { xs: 30, sm: 35 }, bgcolor: '#000' }} />
                 </Button>
 
                 <Menu
-                    id="basic-menu"
+                    id="ShowOnLogin"
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose}
                     slotProps={{
                         list: {
-                            'aria-labelledby': 'basic-button',
+                            'aria-labelledby': 'LoginButton',
                             sx: {
                                 paddingY: 0,
-                                minWidth: 200,
+                                width: { xs: 200, sm: 250 },
                             }
                         },
                     }}
                 >
-                    {
-                        loggedInClient.map((item, i) => (
-                            <MenuItem key={i} sx={{ fontWeight: 'bold', fontFamily: 'Nunito', fontSize: '13px', backgroundColor: '#ddd6fe', borderBottom: '1px silver solid' }} onClick={handleClose}>
-                                {item.title}
-                            </MenuItem>
-                        ))
-                    }
-                    <AdminOnlyButtons>
-                        <MenuItem sx={{ fontWeight: 'bold', fontFamily: 'Nunito', fontSize: '13px', backgroundColor: '#ddd6fe', borderBottom: '1px silver solid' }} onClick={handleClose}>
-                            Admin
+                    {/* <MenuItem sx={{ fontWeight: 'bold', fontFamily: 'Nunito', fontSize: { xs: '13px', sm: '17px' }, backgroundColor: '#000', paddingY: { sm: 2 }, color: '#fff' }}
+                        onClick={handleClose}>
+                        <div className="flex items-center gap-3">
+                            <FiUser className="text-2xl" />
+                            <span>
+                                Profile
+                            </span>
+                        </div>
+                    </MenuItem> */}
+
+
+                    <Link href='/contactUs'>
+                        <MenuItem sx={style}>
+                            <div className="flex items-center gap-3">
+                                <FiLink2 className="text-2xl" />
+                                <span>
+                                    contact us
+                                </span>
+                            </div>
                         </MenuItem>
+                    </Link>
+
+                    <AdminOnlyButtons>
+                        <Link href='/admin/home'>
+                            <MenuItem sx={style} onClick={handleClose}>
+                                <div className="flex items-center gap-3">
+                                    <MdOutlineAdminPanelSettings className="text-2xl" />
+                                    <span>
+                                        admin
+                                    </span>
+                                </div>
+                            </MenuItem>
+                        </Link>
                     </AdminOnlyButtons>
 
+                    <MenuItem sx={style}
+                        onClick={() => { logOut(); handleClose() }}>
+                        <div className="flex items-center gap-3">
+                            <TbLogout2 className="text-2xl" />
+                            <span>
+                                log out
+                            </span>
+                        </div>
+                    </MenuItem>
                 </Menu>
             </ShowOnLogin>
 
             <ShowOnLogout>
                 <Button
-                    id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    id="LogoutButton"
+                    aria-controls={open ? 'ShowOnLogout' : undefined}
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
-                    sx={{ minWidth: 20, paddingX: 0, color: 'black' }}
+                    sx={{ paddingX: 0 }}
                 >
-                    <Avatar alt="" className='shadow' src="" sx={{ width: 30, height: 30, bgcolor: '#000' }} />
+                    <Avatar alt="#" className='shadow' src="#" sx={{ width: { xs: 30, sm: 35 }, height: { xs: 30, sm: 35 }, bgcolor: '#000' }} />
                 </Button>
 
                 <Menu
-                    id="basic-menu"
+                    id="ShowOnLogout"
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose}
                     slotProps={{
                         list: {
-                            'aria-labelledby': 'basic-button',
+                            'aria-labelledby': 'LogoutButton',
                             sx: {
                                 paddingY: 0,
-                                minWidth: 200
+                                width: { xs: 200, sm: 250 },
                             }
                         },
                     }}
                 >
-                    {
-                        noLoggedInClient.map((item, i) => (
-                            <MenuItem key={i} sx={{ fontWeight: 'bold', fontSize: '13px', fontFamily: 'Nunito', backgroundColor: '#ddd6fe', borderBottom: '1px silver solid' }} onClick={handleClose}>{item.title}</MenuItem>
-                        ))
-                    }
+                    <Link href='/register'>
+                        <MenuItem sx={style} onClick={handleClose}>
+                            <div className="flex items-center gap-3">
+                                <RiUserAddLine className="text-2xl" />
+                                <span>
+                                    Register
+                                </span>
+                            </div>
+                        </MenuItem>
+                    </Link>
+
+                    <Link href='/login'>
+                        <MenuItem sx={style} onClick={handleClose}>
+                            <div className="flex items-center gap-3">
+                                <TbLogin2 className="text-2xl" />
+                                <span>
+                                    Login
+                                </span>
+                            </div>
+                        </MenuItem>
+                    </Link>
+
+                    <Link href='/contactUs'>
+                        <MenuItem sx={style}>
+                            <div className="flex items-center gap-3">
+                                <FiLink2 className="text-2xl" />
+                                <span>
+                                    contact us
+                                </span>
+                            </div>
+                        </MenuItem>
+                    </Link>
+
                 </Menu>
-            </ShowOnLogout>
+            </ShowOnLogout >
         </>
     )
 }
