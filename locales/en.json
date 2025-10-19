@@ -1,0 +1,42 @@
+{
+    "navbar": {
+        "logo": "TaroPud",
+        "contactUs": "contact us",
+        "admin": "admin",
+        "logOut": "log out",
+        "categories": "Categories",
+        "all": "all",
+        "winter": "winter",
+        "fall": "fall",
+        "summer": "summer",
+        "brands": "Brands",
+        "price": "price",
+        "Taropud": "TaroPud",
+        "reset": "reset",
+        "accept": "accept",
+        "Latest": "latest",
+        "Lowest Price": "lowest price",
+        "Highest Price": "highest price",
+        "A - Z": "A - Z",
+        "Z - A": "Z - A"
+    },
+    "headers": {
+        "Taropud Producing Group": "Taropud Producing Group",
+        "New of the week": "New of the week",
+        "All Products": "All Products"
+    },
+    "product card": {
+        "buy": "Buy",
+        "T": "T",
+        "Taropud": "TaroPud"
+    },
+    "cart": {
+        "shopping cart": "shopping cart",
+        "price": "price",
+        "quantity": "quantity",
+        "total price": "total price",
+        "actions": "actions",
+        "clear": "clear",
+        "payment": "payment"
+    }
+}

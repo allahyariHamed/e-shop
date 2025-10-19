@@ -8,9 +8,11 @@ import { selectCardLayout } from "../utils/redux/productCardSlice"
 import { useFetchProducts } from "../utils/customHooks/useFetchProducts"
 import Pagination from "@mui/material/Pagination"
 import { Product } from "../types/types"
-export const cart = JSON.parse(localStorage.getItem('cartItems') ?? '[]')
+import { useTranslations } from "next-intl"
+// export const cart = JSON.parse(localStorage.getItem('cartItems') ?? '[]')
 
 const ProductList: FC = () => {
+    const t = useTranslations('headers')
     const products = useFetchProducts('products')
     const layout = useSelector(selectCardLayout)
     const filteredProducts = useSelector(selectFilteredProducts)
@@ -33,7 +35,7 @@ const ProductList: FC = () => {
         <>
             <div className='font-bold text-xl py-10 text-center'>
                 <span className='bg-black text-white px-5 py-1 rounded-full'>
-                    All Products
+                    {t('All Products')}
                 </span>
             </div>
 

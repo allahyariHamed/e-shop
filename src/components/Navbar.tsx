@@ -1,5 +1,5 @@
 'use client'
-import SideBar from './SideBar';
+import Filter from './Filter';
 import ClientAvatar from './ClientAvatar';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -7,7 +7,6 @@ import { auth } from '../firebase/config';
 import { removeActiveUser, setActiveUser } from '../utils/redux/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalComponent from './Modal';
-// import { HiDotsVertical } from 'react-icons/hi';
 import { HiFilter, HiSortDescending, HiViewGrid } from "react-icons/hi";
 import Search from './Search';
 import Sort from './Sort';
@@ -18,8 +17,12 @@ import { useFetchProducts } from '../utils/customHooks/useFetchProducts';
 import { selectTotalQuantity } from '../utils/redux/cartSlice';
 import { selectCardLayout, setLayout } from '../utils/redux/productCardSlice';
 import { FaThList } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 
 const Navbar: React.FC = () => {
+    const params = useParams();
+    const { locale } = params
     const totalQuantity = useSelector(selectTotalQuantity)
     const layout = useSelector(selectCardLayout)
     const [extractedUserName, SetExtractedUserName] = useState<string>()
@@ -28,7 +31,7 @@ const Navbar: React.FC = () => {
     const [search, setSearch] = useState<boolean>(false);
     const [sort, setSort] = useState<boolean>(false);
     const dispatch = useDispatch()
-
+    const t = useTranslations('navbar');
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -70,7 +73,7 @@ const Navbar: React.FC = () => {
                             <FaThList />
                         </div> : null
                     }
-                    <Link href={'/cart'}>
+                    <Link href={`/${locale}/cart`}>
                         <div className="relative">
                             <BiSolidShoppingBagAlt className="text-2xl sm:text-3xl" />
                             <div className="absolute bottom-2 left-6 text-sm font-bold sm:left-8 sm:bottom-2 sm:text-lg">
@@ -81,12 +84,12 @@ const Navbar: React.FC = () => {
                 </div>
 
                 <span className="text-lg font-bold px-3 sm:text-2xl">
-                    TaroPud
+                    {t('logo')}
                 </span>
 
                 <div className='md:hidden'>
                     <ModalComponent Icon={HiFilter} open={sidebar} setOpen={SetSidebar}>
-                        <SideBar setOpen={SetSidebar} />
+                        <Filter setOpen={SetSidebar} />
                     </ModalComponent>
                 </div>
 
@@ -100,7 +103,7 @@ const Navbar: React.FC = () => {
                     </ModalComponent>
 
                     <ModalComponent Icon={HiFilter} open={sidebar} setOpen={SetSidebar}>
-                        <SideBar setOpen={SetSidebar} />
+                        <Filter setOpen={SetSidebar} />
                     </ModalComponent>
                 </div>
             </div>

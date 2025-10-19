@@ -1,4 +1,5 @@
 'use client'
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React, { FC } from 'react';
 import Carousel from 'react-multi-carousel';
@@ -17,12 +18,14 @@ const Slide: FC<SlideProps> = ({ description, image }) => (
 );
 
 const CarouselComponent: FC = () => {
+    const t = useTranslations('headers')
+
     return (
 
         <>
             <div className='font-bold text-xl py-10 text-center'>
                 <span className='bg-black text-white px-5 py-1 rounded-full'>
-                    New of the week
+                    {t('New of the week')}
                 </span>
             </div>
 

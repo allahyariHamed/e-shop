@@ -9,6 +9,8 @@ import React from "react"
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 
+export const cart = JSON.parse(localStorage.getItem('cartItems') ?? '[]')
+
 export const register = (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>, router: AppRouterInstance, prevURL: string) => {
     e.preventDefault()
     const { email, password, confirmpassword } = formData

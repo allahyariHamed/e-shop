@@ -7,8 +7,10 @@ import { FaSquarePlus, FaSquareMinus } from "react-icons/fa6";
 import { FC, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { selectLoggedIn } from "@/src/utils/redux/authSlice"
+import { useTranslations } from "next-intl"
 
 const Cart: FC = () => {
+    const t = useTranslations('cart')
     const cartItems = useSelector(selectCartItem)
     const totalQuantity = useSelector(selectTotalQuantity)
     const totalAmount = useSelector(selectTotalAmount)
@@ -28,7 +30,7 @@ const Cart: FC = () => {
         <>
             <div className="py-2 bg-white md:py-3">
                 <div className="font-bold text-2xl md:text-3xl text-center py-2 bg-violet-200 rounded shadow md:max-w-3xl lg:max-w-full mx-auto">
-                    shopping cart
+                    {t('shopping cart')}
                 </div>
             </div>
 
@@ -42,7 +44,7 @@ const Cart: FC = () => {
                                 <div className="font-bold">{element.name}</div>
                                 <div className="flex justify-between">
                                     <div>
-                                        price :
+                                        {t('price')} :
                                     </div>
                                     <div className="font-bold">
                                         {element.price}
@@ -50,7 +52,7 @@ const Cart: FC = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <div>
-                                        quantity :
+                                        {t('quantity')} :
                                     </div>
                                     <div className="flex items-center font-bold gap-2">
                                         <FaSquareMinus className="text-rose-600 sm:text-xl hover:cursor-pointer" onClick={() => { dispatch(decrease(element)) }} />
@@ -61,7 +63,7 @@ const Cart: FC = () => {
 
                                 <div className="flex justify-between">
                                     <div>
-                                        total price :
+                                        {t('total price')} :
                                     </div>
                                     <div className="font-bold">
                                         {Number(element.totalQuantity) * Number(element.price)}
@@ -69,7 +71,7 @@ const Cart: FC = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <div>
-                                        actions :
+                                        {t('actions')} :
                                     </div>
                                     <div onClick={() => dispatch(removeFromCart(element))}>
                                         <HiArchiveBoxXMark className="text-xl text-rose-600 sm:text-2xl hover:cursor-pointer" />
@@ -82,13 +84,13 @@ const Cart: FC = () => {
                 <div className="fixed bottom-0 left-0 w-full p-2 bg-white">
                     <div className="font-bold text-sm sm:text-base grid lg:w-1/2 mx-auto grid-cols-2 gap-2 sm:grid-cols-4 text-center md:max-w-3xl lg:max-w-full">
                         <div className="shadow py-1 bg-violet-200 rounded sm:py-2">
-                            total : {totalAmount} $
+                            {t('total price')} : {totalAmount}
                         </div>
                         <div className="shadow py-1 bg-violet-200 rounded sm:py-2">
-                            quantity : {totalQuantity}
+                            {t('quantity')} : {totalQuantity}
                         </div>
-                        <button type="button" onClick={checkOut} className="bg-violet-200 font-bold shadow py-1 rounded sm:mb-0 sm:py-2 hover:cursor-pointer">check out</button>
-                        <button type="button" onClick={() => dispatch(clearCart())} className="bg-rose-600 font-bold py-1 shadow rounded sm:py-2 hover:cursor-pointer">clear</button>
+                        <button type="button" onClick={checkOut} className="bg-violet-200 font-bold shadow py-1 rounded sm:mb-0 sm:py-2 hover:cursor-pointer">{t('payment')}</button>
+                        <button type="button" onClick={() => dispatch(clearCart())} className="bg-rose-600 font-bold py-1 shadow rounded sm:py-2 hover:cursor-pointer">{t('clear')}</button>
                     </div>
                 </div>
             </div>

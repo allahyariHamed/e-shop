@@ -1,6 +1,6 @@
 'use client'
 import Form from "@/src/components/Form"
-import { login } from "../../utils/apiServices"
+import { login } from "../../../utils/apiServices"
 
 const Login = () => {
     const inputs = [

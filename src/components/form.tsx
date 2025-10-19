@@ -59,7 +59,7 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, in
 
                 <div className="flex gap-2">
                     {
-                        button && <button type="submit" className="font-bold button sm:text-lg">
+                        button && <button type="submit" className="font-bold button sm:text-lg hover:cursor-pointer">
                             {button}
                         </button>
                     }

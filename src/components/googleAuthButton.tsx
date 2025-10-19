@@ -12,7 +12,7 @@ const GoogleAuthButton: React.FC<GoogleAuth> = ({ button }) => {
     const prevURL = useSelector(selectPrevURL)
 
     return (
-        <button type="button" onClick={() => loginByGoogle(router, prevURL)} className="flex button gap-2 font-bold items-center justify-center py-1 px-3 ">
+        <button type="button" onClick={() => loginByGoogle(router, prevURL)} className="flex button gap-2 font-bold items-center justify-center py-1 px-3 hover:cursor-pointer">
             <div><FcGoogle className="text-2xl bg-transparent sm:text-2xl" /></div>
             <div className="text-xs sm:text-base">{`${button} by Google`}</div>
         </button>

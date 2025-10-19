@@ -1,6 +1,6 @@
-import { cart } from '@/src/components/ProductList'
 import { createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
+import { cart } from '../apiServices'
 
 type state = {
     cartItems: {

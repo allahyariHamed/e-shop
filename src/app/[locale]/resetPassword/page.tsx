@@ -1,6 +1,6 @@
 'use client'
 import Form from "@/src/components/Form"
-import { resetPassword } from "../../utils/apiServices"
+import { resetPassword } from "../../../utils/apiServices"
 
 const inputs = [
     { label: 'email', type: 'email' },

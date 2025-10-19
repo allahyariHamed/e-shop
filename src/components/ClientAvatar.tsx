@@ -12,9 +12,13 @@ import { FiLink2 } from "react-icons/fi";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { TbLogin2, TbLogout2 } from "react-icons/tb";
 import { RiUserAddLine } from "react-icons/ri";
-// import { FiUser } from "react-icons/fi";
+import { useTranslations } from "next-intl"
+import { useParams } from "next/navigation"
 
 const ClientAvatar: FC = () => {
+    const params = useParams();
+    const { locale } = params
+    const t = useTranslations('navbar')
     const userName = useSelector(selectUserName)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -68,24 +72,24 @@ const ClientAvatar: FC = () => {
                     </MenuItem> */}
 
 
-                    <Link href='/contactUs'>
+                    <Link href={`/${locale}/contactUs`}>
                         <MenuItem sx={style}>
                             <div className="flex items-center gap-3">
                                 <FiLink2 className="text-2xl" />
                                 <span>
-                                    contact us
+                                    {t('contactUs')}
                                 </span>
                             </div>
                         </MenuItem>
                     </Link>
 
                     <AdminOnlyButtons>
-                        <Link href='/admin/home'>
+                        <Link href={`/${locale}/admin/home`}>
                             <MenuItem sx={style} onClick={handleClose}>
                                 <div className="flex items-center gap-3">
                                     <MdOutlineAdminPanelSettings className="text-2xl" />
                                     <span>
-                                        admin
+                                        {t('admin')}
                                     </span>
                                 </div>
                             </MenuItem>
@@ -97,7 +101,7 @@ const ClientAvatar: FC = () => {
                         <div className="flex items-center gap-3">
                             <TbLogout2 className="text-2xl" />
                             <span>
-                                log out
+                                {t('logOut')}
                             </span>
                         </div>
                     </MenuItem>
@@ -131,7 +135,7 @@ const ClientAvatar: FC = () => {
                         },
                     }}
                 >
-                    <Link href='/register'>
+                    <Link href={`/${locale}/register`}>
                         <MenuItem sx={style} onClick={handleClose}>
                             <div className="flex items-center gap-3">
                                 <RiUserAddLine className="text-2xl" />
@@ -142,7 +146,7 @@ const ClientAvatar: FC = () => {
                         </MenuItem>
                     </Link>
 
-                    <Link href='/login'>
+                    <Link href={`/${locale}/login`}>
                         <MenuItem sx={style} onClick={handleClose}>
                             <div className="flex items-center gap-3">
                                 <TbLogin2 className="text-2xl" />
@@ -153,7 +157,7 @@ const ClientAvatar: FC = () => {
                         </MenuItem>
                     </Link>
 
-                    <Link href='/contactUs'>
+                    <Link href={`/${locale}/contactUs`}>
                         <MenuItem sx={style}>
                             <div className="flex items-center gap-3">
                                 <FiLink2 className="text-2xl" />

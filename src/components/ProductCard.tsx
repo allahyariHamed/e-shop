@@ -4,8 +4,10 @@ import { FC } from 'react'
 import { ClientProductCard } from '../types/types'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../utils/redux/cartSlice'
+import { useTranslations } from 'next-intl'
 
 const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price, product }) => {
+    const t = useTranslations('product card')
     const dispatch = useDispatch()
     const storedCartItems = localStorage.getItem('cartItems')
 
@@ -27,7 +29,7 @@ const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price,
                     layout === 'list' && 'px-2'
                 )}>
                     <div className="font-bold text-sm sm:text-base py-1 truncate">{name}</div>
-                    <div className="text-sm sm:text-base lg:text-sm">{brand}</div>
+                    <div className="text-sm sm:text-base lg:text-sm">{t(brand)}</div>
                 </div>
 
                 <div className="flex justify-between items-baseline p-1">
@@ -35,11 +37,11 @@ const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price,
                     <div className={clsx("font-bold text-sm sm:text-base",
                         layout === 'list' && 'px-1'
                     )}>
-                        {price} T
+                        {price} {t('T')}
                     </div>
 
                     <div className="bg-black text-white text-xs font-bold px-2 py-1 rounded shadow sm:text-sm lg:text-sm hover:cursor-pointer" onClick={() => dispatch(addToCart({ product, storedCartItems }))}>
-                        Buy
+                        {t('buy')}
                     </div>
 
                 </div>

@@ -1,6 +1,6 @@
 "use client"
 import Form from "@/src/components/Form";
-import { register } from "../../utils/apiServices";
+import { register } from "../../../utils/apiServices";
 
 const inputs = [
     { label: 'email', type: 'email' },

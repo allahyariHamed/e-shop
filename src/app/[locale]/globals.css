@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* @theme {
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 40rem;
+  --breakpoint-laptop: 64rem;
+  --breakpoint-desktop: 80rem;
+} */
+
 @layer base {
   html {
     font-family: 'Nunito', system-ui, sans-serif;
@@ -17,6 +24,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
 
 /* body { */
 /* background: var(--background); */

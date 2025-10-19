@@ -1,0 +1,42 @@
+{
+    "navbar": {
+        "logo": "تارو پود",
+        "contactUs": "تماس با ما",
+        "admin": "ادمین",
+        "logOut": "خروج",
+        "categories": "دسته بندی ها",
+        "all": "همه",
+        "winter": "زمستان",
+        "fall": "پاییز",
+        "summer": "تابستان",
+        "brands": "برندها",
+        "price": "قیمت",
+        "Taropud": "تارو پود",
+        "reset": "بازنشانی",
+        "accept": "تایید",
+        "Latest": "جدیدترین",
+        "Lowest Price": "کمترین قیمت",
+        "Highest Price": "بیشترین قیمت",
+        "A - Z": "ی - الف",
+        "Z - A": "الف - ی"
+    },
+    "headers": {
+        "Taropud Producing Group": "گروه تولیدی تاروپود",
+        "New of the week": "جدیدترین های هفته",
+        "All Products": "تمام محصولات"
+    },
+    "product card": {
+        "buy": "خرید",
+        "T": "تومان",
+        "Taropud": "تارو پود"
+    },
+    "cart": {
+        "shopping cart": "سبد خرید",
+        "price": "قیمت",
+        "quantity": "تعداد",
+        "total price": "مجموع قیمت",
+        "actions": "عملیات ها",
+        "clear": "پاکسازی",
+        "payment": "پرداخت"
+    }
+}
