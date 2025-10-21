@@ -7,7 +7,7 @@ const Login = () => {
         { label: 'email', type: 'email' },
         { label: 'password', type: 'password' },
     ]
-    const button = ['Login']
+    const button ='login'
     const endOfTheFormTitle = { text: "Don't have an account?", link: "register" }
     return (
         <div className="px-2 h-screen flex items-center justify-center">

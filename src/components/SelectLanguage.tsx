@@ -14,7 +14,7 @@ const SelectLanguage: FC = () => {
 
     return (
         <div className="flex justify-center fixed bottom-10 left-10">
-            <motion.button whileHover={{ scale: 1.5 }} onClick={() => setDropdown(!dropdown)} onBlur={delay} id="dropdown-button" className="relative rounded-full p-2 hover:cursor-pointer bg-violet-200">
+            <motion.button whileHover={{ scale: 1.5 }} onClick={() => setDropdown(!dropdown)} onBlur={delay} id="dropdown-button" className="relative rounded-full p-2 hover:cursor-pointer bg-violet-200 shadow">
                 <GrLanguage className='text-3xl' />
             </motion.button>
 

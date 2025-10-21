@@ -140,7 +140,7 @@ const ClientAvatar: FC = () => {
                             <div className="flex items-center gap-3">
                                 <RiUserAddLine className="text-2xl" />
                                 <span>
-                                    Register
+                                    {t('register')}
                                 </span>
                             </div>
                         </MenuItem>
@@ -151,7 +151,7 @@ const ClientAvatar: FC = () => {
                             <div className="flex items-center gap-3">
                                 <TbLogin2 className="text-2xl" />
                                 <span>
-                                    Login
+                                    {t('login')}
                                 </span>
                             </div>
                         </MenuItem>
@@ -162,7 +162,7 @@ const ClientAvatar: FC = () => {
                             <div className="flex items-center gap-3">
                                 <FiLink2 className="text-2xl" />
                                 <span>
-                                    contact us
+                                    {t('contactUs')}
                                 </span>
                             </div>
                         </MenuItem>

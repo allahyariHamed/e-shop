@@ -6,15 +6,17 @@ import { useRouter } from "next/navigation"
 import { useSelector } from "react-redux"
 import { selectPrevURL } from "../utils/redux/cartSlice"
 import { loginByGoogle } from "../utils/apiServices"
+import { useTranslations } from "next-intl"
 
-const GoogleAuthButton: React.FC<GoogleAuth> = ({ button }) => {
+const GoogleAuthButton: React.FC<GoogleAuth> = () => {
+    const t = useTranslations('navbar')
     const router = useRouter();
     const prevURL = useSelector(selectPrevURL)
 
     return (
         <button type="button" onClick={() => loginByGoogle(router, prevURL)} className="flex button gap-2 font-bold items-center justify-center py-1 px-3 hover:cursor-pointer">
             <div><FcGoogle className="text-2xl bg-transparent sm:text-2xl" /></div>
-            <div className="text-xs sm:text-base">{`${button} by Google`}</div>
+            <div className="text-xs sm:text-base">{t('login by Google')}</div>
         </button>
     )
 }

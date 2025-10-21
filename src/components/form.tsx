@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import GoogleAuthButton from "./GoogleAuthButton";
 import 'react-toastify/ReactToastify.css'
 import { FormProps, CategoryProps, UploadImageProps } from "../types/types";
@@ -13,9 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import { fileToBase64 } from "../utils/base64Converter";
 import { useSelector } from "react-redux";
 import { selectPrevURL } from "../utils/redux/cartSlice";
+import { useTranslations } from "next-intl";
 // import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, inputs, addProductForm }) => {
+    const params = useParams();
+    const { locale } = params
+    const t = useTranslations('navbar')
     const [formData, setFormData] = useState<Record<string, string>>({});
     const [focus, SetFocus] = useState<string>('')
     const [category, setCategory] = useState<string>('')
@@ -26,7 +30,7 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, in
         <div className="p-3 w-full rounded-lg shadow bg-violet-200 sm:w-md">
 
             <div className="font-extrabold text-2xl text-center sm:text-3xl py-5">
-                {button}
+                {t(button)}
             </div>
 
             <form onSubmit={(e) => { handleSubmit?.(e, formData, router, prevURL); setCategory(''); setFormData({}) }} className="my-5">
@@ -60,11 +64,11 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, in
                 <div className="flex gap-2">
                     {
                         button && <button type="submit" className="font-bold button sm:text-lg hover:cursor-pointer">
-                            {button}
+                            {t(button)}
                         </button>
                     }
                     {
-                        button?.includes('Login') && <GoogleAuthButton button={button} />
+                        button?.includes('login') && <GoogleAuthButton />
                     }
                 </div>
             </form>
@@ -74,7 +78,7 @@ const Form: React.FC<FormProps> = ({ endOfTheFormTitle, button, handleSubmit, in
                     {endOfTheFormTitle?.text}{' '}
                 </span>
 
-                <Link href={`/${endOfTheFormTitle?.link}`} className="text-violet-600 hover:text-violet-400 font-bold">
+                <Link href={`/${locale}/${endOfTheFormTitle?.link}`} className="text-violet-600 hover:text-violet-400 font-bold">
                     {endOfTheFormTitle?.link}
                 </Link>
             </p>

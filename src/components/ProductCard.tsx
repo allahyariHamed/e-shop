@@ -5,8 +5,12 @@ import { ClientProductCard } from '../types/types'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../utils/redux/cartSlice'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price, product }) => {
+    const params = useParams()
+    console.log(params)
     const t = useTranslations('product card')
     const dispatch = useDispatch()
     const storedCartItems = localStorage.getItem('cartItems')
@@ -18,7 +22,9 @@ const ProductCard: FC<ClientProductCard> = ({ layout, image, name, brand, price,
             <div className={clsx('',
                 layout === 'list' && 'w-2/5'
             )}>
-                <Image alt='#' src={image} height='400' width='400' className='shadow rounded h-full w-full aspect-[4/5]' />
+                <Link href={`/${params.locale}/${product.id}`}>
+                    <Image alt='#' src={image} height='400' width='400' className='shadow rounded h-full w-full aspect-[4/5]' />
+                </Link>
             </div>
 
             <div className={clsx('',

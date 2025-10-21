@@ -5,7 +5,7 @@ import { resetPassword } from "../../../utils/apiServices"
 const inputs = [
     { label: 'email', type: 'email' },
 ]
-const button = ['Reset Password']
+const button = 'reset password'
 
 const Reset = () => {
     return (

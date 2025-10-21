@@ -2,7 +2,7 @@ import { addProduct } from "@/src/utils/apiServices"
 import Form from "../Form"
 
 const AddProduct = () => {
-    const button = ['add product']
+    const button = 'add product'
     const inputs = [
         { label: 'product name', type: 'text' },
         { label: 'product price', type: 'number' },

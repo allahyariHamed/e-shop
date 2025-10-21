@@ -4,6 +4,10 @@
         "contactUs": "contact us",
         "admin": "admin",
         "logOut": "log out",
+        "register": "register",
+        "login": "login",
+        "login by Google": "login by Google",
+        "reset password": "reset password",
         "categories": "Categories",
         "all": "all",
         "winter": "winter",
@@ -38,5 +42,9 @@
         "actions": "actions",
         "clear": "clear",
         "payment": "payment"
+    },
+    "footer":{
+        "name":"Hamed Allahyari",
+        "footer":"This template is made by"
     }
 }

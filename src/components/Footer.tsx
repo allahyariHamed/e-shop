@@ -12,8 +12,10 @@ import { IoSearch } from "react-icons/io5";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 import Link from "next/link";
 import { calculateTotalQuantity, selectCartItem, selectTotalQuantity } from "../utils/redux/cartSlice";
+import { useTranslations } from "next-intl";
 
 const Footer: FC = () => {
+    const t = useTranslations('footer')
     const layout = useSelector(selectCardLayout)
     const totalQuantity = useSelector(selectTotalQuantity)
     const cartItems = useSelector(selectCartItem)
@@ -58,7 +60,8 @@ const Footer: FC = () => {
             </div>
 
             <div className="md:block bg-violet-200 text-center py-2 rounded text-sm shadow hidden">
-                This template is made with Love by <span className="font-bold">Hamed Allahyari</span> .
+                
+                {t('footer')} <span className="font-bold">{t('name')}</span>
             </div>
         </div>
     )

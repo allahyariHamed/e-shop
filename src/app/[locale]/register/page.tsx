@@ -7,7 +7,7 @@ const inputs = [
     { label: 'password', type: 'password' },
     { label: 'confirm password', type: 'password' },
 ]
-const button = ['Register']
+const button = 'register'
 const endOfTheFormTitle = { text: "Already have an account?", link: "login" }
 
 const Register = () => {

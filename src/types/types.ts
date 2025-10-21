@@ -11,7 +11,7 @@ export interface AuthState {
 
 export interface FormProps {
     endOfTheFormTitle?: { text: string, link: string }
-    button?: React.ReactNode[]
+    button: string
     handleSubmit: (
         e: React.FormEvent<HTMLFormElement>,
         formData: Record<string, string>,
@@ -26,7 +26,6 @@ export interface FormProps {
 
 export interface GoogleAuth {
     handleGoogleAuth?: () => void
-    button?: React.ReactNode[]
 }
 
 export interface DynamicRoutes {

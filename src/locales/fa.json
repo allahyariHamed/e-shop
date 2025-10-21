@@ -4,6 +4,10 @@
         "contactUs": "تماس با ما",
         "admin": "ادمین",
         "logOut": "خروج",
+        "register": "ثبت نام",
+        "login": "ورود",
+        "login by Google": "ورود با گوگل",
+        "reset password": "بازنشانی رمز عبور",
         "categories": "دسته بندی ها",
         "all": "همه",
         "winter": "زمستان",
@@ -38,5 +42,9 @@
         "actions": "عملیات ها",
         "clear": "پاکسازی",
         "payment": "پرداخت"
+    },
+    "footer": {
+        "name":"حامد الله یاری",
+        "footer": "طراحی و توسعه توسط"
     }
 }

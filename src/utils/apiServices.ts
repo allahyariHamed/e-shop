@@ -13,11 +13,12 @@ export const cart = JSON.parse(localStorage.getItem('cartItems') ?? '[]')
 
 export const register = (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>, router: AppRouterInstance, prevURL: string) => {
     e.preventDefault()
-    const { email, password, confirmpassword } = formData
-    console.log(password)
-    console.log(confirmpassword)
+    const { email, password, confirm_password } = formData
+    console.log(formData)
+    // console.log(password)
+    // console.log(confirmpassword)
 
-    if (password !== confirmpassword) {
+    if (password !== confirm_password) {
         toast.error("password is not match with confirm password!", { theme: 'colored' })
         return
     }
@@ -32,6 +33,7 @@ export const register = (e: React.FormEvent<HTMLFormElement>, formData: Record<s
 
 export const login = (e: React.FormEvent<HTMLFormElement>, formData: Record<string, string>, router: AppRouterInstance, prevURL: string) => {
     e.preventDefault()
+    console.log(formData)
     const { Email, Password } = formData
     signInWithEmailAndPassword(auth, Email, Password).then(() => {
         toast.success('user logged in', { theme: 'colored' })
