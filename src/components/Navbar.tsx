@@ -19,6 +19,7 @@ import { selectCardLayout, setLayout } from '../utils/redux/productCardSlice';
 import { FaThList } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
+import SelectLanguage from './SelectLanguage';
 
 const Navbar: React.FC = () => {
     const params = useParams();
@@ -56,9 +57,13 @@ const Navbar: React.FC = () => {
         <nav className="sticky top-0 z-10 pt-2 bg-white rounded-b">
             <div className="flex items-center justify-between shadow bg-violet-200 rounded-md py-1 pr-3 md:pr-0">
 
-                <div className='md:hidden'>
+                <div className='md:hidden flex items-center'>
                     <ClientAvatar />
+                    <SelectLanguage />
                 </div>
+
+                {/* <div>
+                </div> */}
 
                 <div className='md:flex gap-5 items-center hidden'>
                     <ClientAvatar />

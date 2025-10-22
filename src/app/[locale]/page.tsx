@@ -13,7 +13,9 @@ const Home = () => {
         <Banner />
         <CarouselComponent />
         <ProductList />
-        <SelectLanguage />
+        <div className="hidden md:block fixed bottom-10 left-10">
+          <SelectLanguage />
+        </div>
       </div >
       <Footer />
     </>
